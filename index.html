@@ -91,7 +91,7 @@
             border: 1px solid #eee;
             padding: 8px 5px;
             text-align: center;
-            vertical-align: top;
+            vertical-align: middle;
             height: 70px;
             transition: all 0.3s ease;
             background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
@@ -116,59 +116,58 @@
         }
 
         .efektif { 
-            background: linear-gradient(135deg, #e8ffe8 0%, #d9ffd9 100%);
-            box-shadow: inset 0 0 10px rgba(144, 238, 144, 0.2);
+            background: linear-gradient(135deg, #b3ffcc 0%, #80ffaa 100%); /* Hijau segar */
+            box-shadow: inset 0 0 10px rgba(0, 200, 100, 0.4);
+            color: #004d26; /* Hijau tua untuk kontras */
         }
 
         .pengayaan { 
-            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
-            box-shadow: inset 0 0 10px rgba(255, 198, 140, 0.2);
+            background: linear-gradient(135deg, #ffd699 0%, #ffcc80 100%); /* Oranye lembut */
+            box-shadow: inset 0 0 10px rgba(255, 140, 0, 0.4);
+            color: #804000; /* Coklat tua untuk kontras */
         }
 
         .munaqasyah { 
-            background: linear-gradient(135deg, #e6faff 0%, #ccf2ff 100%);
-            box-shadow: inset 0 0 10px rgba(135, 206, 250, 0.2);
+            background: linear-gradient(135deg, #99e6ff 0%, #80dfff 100%); /* Biru cerah */
+            box-shadow: inset 0 0 10px rgba(0, 140, 255, 0.4);
+            color: #004080; /* Biru tua untuk kontras */
         }
 
         .libur { 
-            background: linear-gradient(135deg, #ffecec 0%, #ffe6e6 100%);
-            box-shadow: inset 0 0 10px rgba(255, 200, 200, 0.2);
+            background: linear-gradient(135deg, #ff6666 0%, #ff4d4d 100%); /* Merah terang */
+            box-shadow: inset 0 0 10px rgba(255, 0, 0, 0.4);
+            color: white; /* Agar tetap terbaca */
         }
 
         .minggu {
-            background: linear-gradient(135deg, #fff0e6 0%, #ffe6d4 100%);
-            box-shadow: inset 0 0 10px rgba(255, 210, 180, 0.2);
+            background: linear-gradient(135deg, #cc0000 0%, #990000 100%); /* Merah maroon */
+            box-shadow: inset 0 0 10px rgba(128, 0, 0, 0.4);
+            color: white; /* Agar tetap terbaca */
         }
 
         .murojaah { 
-            background: linear-gradient(135deg, #fffff2 0%, #ffffe0 100%);
-            box-shadow: inset 0 0 10px rgba(255, 255, 180, 0.2);
+            background: linear-gradient(135deg, #ffff99 0%, #ffff80 100%); /* Kuning pastel */
+            box-shadow: inset 0 0 10px rgba(255, 255, 0, 0.4);
+            color: #666600; /* Kuning tua untuk kontras */
         }
 
         /* Today's date styling */
         td.today {
-            background: linear-gradient(135deg, #f0e6ff 0%, #e6d9ff 100%);
-            box-shadow: inset 0 0 15px rgba(147, 112, 219, 0.15);
-            border: 2px solid #b19cd9;
+            background: linear-gradient(135deg, #ffccf2 0%, #ffb3e6 100%); /* Pink ungu cerah */
+            box-shadow: inset 0 0 15px rgba(255, 105, 180, 0.3); /* Efek lebih nyata */
+            border: 2px solid #ff66b2; /* Pink terang */
         }
 
         td.today .date-number {
-            color: #6a5acd;
-        }
-
-        td.today .event-label {
-            color: #483d8b;
-        }
-
-        td.today::before {
-            background: linear-gradient(90deg, #b19cd9, transparent);
-            opacity: 1;
+            color: #cc0066; /* Pink gelap agar kontras */
         }
 
         .date-number {
             font-weight: bold;
             margin-bottom: 4px;
             font-size: 0.9em;
+            text-align: center;
+            display: block;
         }
 
         .event-label {
@@ -178,11 +177,14 @@
             padding: 0 2px;
             word-break: break-word;
             white-space: normal;
+            text-align: center;
+            display: block;
         }
 
-        td:hover {
-            box-shadow: inset 0 0 0 2px #800000;
-            background-color: rgba(255, 255, 255, 0.5);
+        /* Ubah warna teks menjadi putih khusus untuk hari Libur dan Minggu */
+        .libur .event-label, 
+        .minggu .event-label {
+            color: white;
         }
 
         @media (max-width: 768px) {
