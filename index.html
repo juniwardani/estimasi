@@ -93,7 +93,71 @@
             text-align: center;
             vertical-align: top;
             height: 70px;
-            transition: all 0.2s ease;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #ffffff 0%, #f8f8f8 100%);
+            position: relative;
+            overflow: hidden;
+        }
+
+        td::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #800000, transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        td:hover::before {
+            opacity: 1;
+        }
+
+        .efektif { 
+            background: linear-gradient(135deg, #e8ffe8 0%, #d9ffd9 100%);
+            box-shadow: inset 0 0 10px rgba(144, 238, 144, 0.2);
+        }
+
+        .pengayaan { 
+            background: linear-gradient(135deg, #fff5e6 0%, #ffe8cc 100%);
+            box-shadow: inset 0 0 10px rgba(255, 198, 140, 0.2);
+        }
+
+        .munaqasyah { 
+            background: linear-gradient(135deg, #e6faff 0%, #ccf2ff 100%);
+            box-shadow: inset 0 0 10px rgba(135, 206, 250, 0.2);
+        }
+
+        .libur { 
+            background: linear-gradient(135deg, #ffe8e8 0%, #ffd9d9 100%);
+            box-shadow: inset 0 0 10px rgba(255, 182, 182, 0.2);
+        }
+
+        .murojaah { 
+            background: linear-gradient(135deg, #fffff2 0%, #ffffe0 100%);
+            box-shadow: inset 0 0 10px rgba(255, 255, 180, 0.2);
+        }
+
+        /* Today's date styling */
+        td.today {
+            background: linear-gradient(135deg, #f0e6ff 0%, #e6d9ff 100%);
+            box-shadow: inset 0 0 15px rgba(147, 112, 219, 0.15);
+            border: 2px solid #b19cd9;
+        }
+
+        td.today .date-number {
+            color: #6a5acd;
+        }
+
+        td.today .event-label {
+            color: #483d8b;
+        }
+
+        td.today::before {
+            background: linear-gradient(90deg, #b19cd9, transparent);
+            opacity: 1;
         }
 
         .date-number {
@@ -109,22 +173,6 @@
             padding: 0 2px;
             word-break: break-word;
             white-space: normal;
-        }
-
-        .efektif { 
-            background-color: rgba(102, 255, 102, 0.3);  
-        }
-        .pengayaan { 
-            background-color: rgba(255, 179, 102, 0.3);  
-        }
-        .munaqasyah { 
-            background-color: rgba(102, 204, 255, 0.3);  
-        }
-        .libur { 
-            background-color: rgba(255, 153, 153, 0.3);  
-        }
-        .murojaah { 
-            background-color: rgba(255, 255, 153, 0.3);  
         }
 
         td:hover {
@@ -525,7 +573,16 @@
                     <div class="event-label">${eventText}</div>
                 `;
                 if(className) td.className = className;
-                
+
+                const today = new Date();
+                const isToday = currentDate.getDate() === today.getDate() && 
+                               currentDate.getMonth() === today.getMonth() && 
+                               currentDate.getFullYear() === today.getFullYear();
+        
+                if(isToday) {
+                    td.classList.add('today');
+                }
+
                 row.appendChild(td);
                 
                 if(row.children.length === 7) {
