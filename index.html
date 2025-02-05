@@ -131,8 +131,13 @@
         }
 
         .libur { 
-            background: linear-gradient(135deg, #ffe8e8 0%, #ffd9d9 100%);
-            box-shadow: inset 0 0 10px rgba(255, 182, 182, 0.2);
+            background: linear-gradient(135deg, #ffecec 0%, #ffe6e6 100%);
+            box-shadow: inset 0 0 10px rgba(255, 200, 200, 0.2);
+        }
+
+        .minggu {
+            background: linear-gradient(135deg, #fff0e6 0%, #ffe6d4 100%);
+            box-shadow: inset 0 0 10px rgba(255, 210, 180, 0.2);
         }
 
         .murojaah { 
@@ -447,17 +452,14 @@
                 updateInfoCard();
             } catch (error) {
                 console.error('Error:', error);
-                // Gunakan data default jika gagal mengambil dari Supabase
                 holidays = [
                     {date: '2025-01-01', desc: 'Tahun Baru Masehi'},
-                    // ... existing holidays data ...
                 ];
                 renderCalendar();
                 updateInfoCard();
             }
         }
 
-        // Panggil fungsi fetch saat halaman dimuat
         document.addEventListener('DOMContentLoaded', fetchHolidays);
 
         const months = [
@@ -483,7 +485,6 @@
         }
 
         function renderCalendar() {
-            // Pastikan holidays sudah terisi
             if (!holidays || holidays.length === 0) return;
             
             const container = document.getElementById('calendar');
@@ -501,7 +502,6 @@
                 const year = currentDate.getFullYear();
                 
                 if (month !== currentMonth) {
-                    // Buat section bulan baru
                     if (table && row.children.length > 0) {
                         while(row.children.length < 7) {
                             row.appendChild(document.createElement('td'));
@@ -540,16 +540,17 @@
                 let className = '';
                 let eventText = '';
 
-                // Only count days that are not holidays, not Sundays, and not Murojaah (Saturdays before munaqasyah)
                 if(!isHoliday && !isSunday && !(isSaturday && effectiveDayCount < 60)) {
-                    if(effectiveDayCount < 44) {
+                    if(effectiveDayCount < 51) {
                         effectiveDayCount++;
                         className = 'efektif';
                         eventText = `Pertemuan ${effectiveDayCount}`;
                     } else if(effectiveDayCount < 60) {
                         effectiveDayCount++;
-                        className = 'pengayaan';
-                        eventText = `Pengayaan ${effectiveDayCount}`;
+                        if (effectiveDayCount >= 52) { 
+                            className = 'pengayaan';
+                            eventText = `Pengayaan ${effectiveDayCount}`;
+                        }
                     } else if(effectiveDayCount < 67) {
                         effectiveDayCount++;
                         className = 'munaqasyah';
@@ -560,7 +561,7 @@
                         className = 'libur';
                         eventText = isHoliday.description;
                     } else if(isSunday) {
-                        className = 'libur';
+                        className = 'minggu';
                         eventText = 'Minggu';
                     } else if(isSaturday && effectiveDayCount < 60) { 
                         className = 'murojaah';
@@ -607,6 +608,7 @@
             let currentDate = new Date(startDate);
             
             let pertemuanEndDate = null;
+            let pengayaanStartDate = null;
             let pengayaanEndDate = null;
             let munaqasyahEndDate = null;
             let effectiveDayCount = 0;
@@ -621,8 +623,10 @@
                 if(!isHoliday && !isSunday && !(isSaturday && effectiveDayCount < 60)) {
                     effectiveDayCount++;
                     
-                    if(effectiveDayCount === 44) {
+                    if(effectiveDayCount === 51) {
                         pertemuanEndDate = new Date(currentDate);
+                    } else if(effectiveDayCount === 52) { 
+                        pengayaanStartDate = new Date(currentDate);
                     } else if(effectiveDayCount === 60) {
                         pengayaanEndDate = new Date(currentDate);
                     } else if(effectiveDayCount === 67) {
@@ -641,12 +645,12 @@
                         <th>Periode</th>
                     </tr>
                     <tr>
-                        <td>Pertemuan 01 s/d 44</td>
+                        <td>Pertemuan 01 s/d 51</td>
                         <td><span class="date-span">${formatDisplayDate(startDate, true)} - ${formatDisplayDate(pertemuanEndDate, true)}</span></td>
                     </tr>
                     <tr>
-                        <td>Pengayaan 45 s/d 60</td>
-                        <td><span class="date-span">${formatDisplayDate(new Date(pertemuanEndDate.getTime() + 86400000), true)} - ${formatDisplayDate(pengayaanEndDate, true)}</span></td>
+                        <td>Pengayaan 52 s/d 60</td>
+                        <td><span class="date-span">${formatDisplayDate(pengayaanStartDate, true)} - ${formatDisplayDate(pengayaanEndDate, true)}</span></td>
                     </tr>
                     <tr>
                         <td>Estimasi Munaqasyah</td>
