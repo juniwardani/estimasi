@@ -1,0 +1,603 @@
+<!Doctype html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kalender Pendidikan 2025 - Rumah Tahfidz Saijaan</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            width: 100%;
+            overflow-x: hidden;
+        }
+
+        header, footer {
+            background-color: #800000;
+            color: white;
+            text-align: center;
+            padding: 1rem;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        footer {
+            margin-top: 20px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+            margin: 20px 10px;
+            word-wrap: break-word;
+        }
+
+        .container {
+            font-family: Arial, sans-serif;
+            margin: 20px auto;  
+            max-width: 1000px;
+            padding: 0 30px; 
+            box-sizing: border-box;
+            width: 100%;
+        }
+
+        .month {
+            margin: 40px 0 30px 0;  
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+            overflow: hidden;
+            transition: transform 0.2s ease;
+        }
+
+        .month:first-child {
+            margin-top: 20px; 
+        }
+
+        .month:hover {
+            transform: translateY(-2px);
+        }
+
+        .month h2 {
+            background: #800000;
+            color: white;
+            margin: 0;
+            padding: 20px 15px; 
+            font-size: 1.2em;
+            text-align: center;
+            letter-spacing: 1px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0; 
+            background: white;
+            table-layout: fixed;
+        }
+
+        th {
+            background: #f8f8f8;
+            color: #666;
+            font-weight: 600;
+            font-size: 0.85em;
+            padding: 12px 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            border: 1px solid #eee;
+        }
+
+        td {
+            border: 1px solid #eee;
+            padding: 8px 5px;
+            text-align: center;
+            vertical-align: top;
+            height: 70px;
+            transition: all 0.2s ease;
+        }
+
+        .date-number {
+            font-weight: bold;
+            margin-bottom: 4px;
+            font-size: 0.9em;
+        }
+
+        .event-label {
+            font-size: 0.65em;
+            color: #444;
+            line-height: 1.3;
+            padding: 0 2px;
+            word-break: break-word;
+            white-space: normal;
+        }
+
+        .efektif { 
+            background-color: rgba(102, 255, 102, 0.3);  
+        }
+        .pengayaan { 
+            background-color: rgba(255, 179, 102, 0.3);  
+        }
+        .munaqasyah { 
+            background-color: rgba(102, 204, 255, 0.3);  
+        }
+        .libur { 
+            background-color: rgba(255, 153, 153, 0.3);  
+        }
+        .murojaah { 
+            background-color: rgba(255, 255, 153, 0.3);  
+        }
+
+        td:hover {
+            box-shadow: inset 0 0 0 2px #800000;
+            background-color: rgba(255, 255, 255, 0.5);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 0 15px; 
+                margin: 10px auto;
+            }
+
+            .month {
+                margin: 30px 0 20px 0; 
+            }
+
+            .month:first-child {
+                margin-top: 15px;
+            }
+
+            .month h2 {
+                padding: 15px;
+            }
+
+            table {
+                margin: 10px 0;
+            }
+
+            td {
+                padding: 4px 1px;
+                height: 50px;
+            }
+
+            .date-number {
+                font-size: 0.75em;
+            }
+
+            .event-label {
+                font-size: 0.55em;
+                padding: 0 1px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            body {
+                font-size: 14px;
+            }
+
+            .container {
+                padding: 0 10px; 
+            }
+
+            td {
+                height: 45px;
+                padding: 2px 1px;
+            }
+
+            .info-card {
+                margin: 15px 10px;
+                padding: 15px;
+                max-width: calc(100% - 20px);
+            }
+
+            .info-card table th,
+            .info-card table td {
+                padding: 8px;
+                font-size: 0.8em;
+            }
+        }
+
+        .info-card {
+            background: linear-gradient(to bottom right, #ffffff, #f8f8f8);
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            margin: 40px 20px 100px 20px; 
+            max-width: calc(100% - 40px); 
+            padding: 30px;
+            transition: transform 0.3s ease;
+            box-sizing: border-box;
+        }
+
+        .info-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .info-card h3 {
+            color: #800000;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.4em;
+            text-align: center;
+            border-bottom: 2px solid #80000030;
+            padding-bottom: 10px;
+        }
+
+        .info-card p {
+            margin: 15px 0;
+            font-size: 1em;
+            color: #333;
+            line-height: 1.6;
+            padding: 5px 0;
+        }
+
+        .date-span {
+            color: #800000;
+            font-weight: bold;
+            background-color: #f8f0f0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            display: inline-block;
+            margin-left: 5px;
+        }
+
+        @media (max-width: 768px) {
+            .info-card {
+                margin: 20px 15px 20px 15px;
+                padding: 20px;
+                max-width: calc(100% - 30px);
+            }
+            
+            .info-card p {
+                font-size: 0.9em;
+            }
+        }
+
+        .info-card table {
+            width: 100%;
+            margin: 20px 0;
+            border-collapse: separate;
+            border-spacing: 0;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 0 10px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .info-card table th,
+        .info-card table td {
+            padding: 12px 15px;
+            text-align: left;
+            border: none;
+            height: auto;
+        }
+
+        .info-card table th {
+            background-color: #800000;
+            color: white;
+            font-weight: 500;
+            text-transform: none;
+            letter-spacing: 0;
+            font-size: 0.95em;
+        }
+
+        .info-card table td {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            font-size: 0.9em;
+            color: #333;
+        }
+
+        .info-card table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .info-card table .date-span {
+            margin: 0;
+            background-color: #fff;
+            color: #800000;
+            padding: 0;
+        }
+
+        @media (max-width: 768px) {
+            .info-card table th,
+            .info-card table td {
+                padding: 10px;
+                font-size: 0.85em;
+            }
+
+            .info-card table .date-span {
+                font-size: 0.95em;
+            }
+        }
+
+        .back-button-container {
+            text-align: center;
+            margin: 30px auto 60px auto;
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 20px; 
+        }
+
+        .back-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            background-color: #800000;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 8px rgba(128, 0, 0, 0.2);
+        }
+
+        .back-button:hover {
+            background-color: #600000;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(128, 0, 0, 0.3);
+        }
+
+        .back-button:active {
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .back-button {
+                padding: 10px 20px;
+                font-size: 0.9em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h2>Rumah Tahfidz Saijaan</h2>
+    </header>
+
+    <h1>Estimasi<br>Waktu Munaqasyah</h1>
+    
+    <div class="container" id="calendar"></div>
+
+    <div class="info-card" id="info-card"></div>
+
+    <div class="back-button-container">
+        <a href="https://rumahtahfidzsaijaan.netlify.app/informasi" class="back-button">
+            <svg viewBox="0 0 24 24" width="24" height="24" style="margin-right: 8px;">
+                <path fill="currentColor" d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Kembali ke Beranda
+        </a>
+    </div>
+
+    <footer>
+        <p>Rumah Tahfidz Saijaan &copy; 2025</p>
+    </footer>
+
+<script>
+        const supabaseUrl = 'https://lrkechznknwqnxckyfcg.supabase.co';
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Imxya2VjaHpua253cW54Y2t5ZmNnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjkxMjgzODEsImV4cCI6MjA0NDcwNDM4MX0.Tj8p1u3_DGQnqhPkS6AJGs5BwOSeebdvsknX2qHzwdQ';
+        
+        // Tanggal mulai belajar
+        const startDate = new Date(2025, 0, 6);
+        let holidays = [];
+
+        async function fetchHolidays() {
+            try {
+                const response = await fetch(`${supabaseUrl}/rest/v1/holidays?select=*`, {
+                    headers: {
+                        'apikey': supabaseKey,
+                        'Authorization': `Bearer ${supabaseKey}`
+                    }
+                });
+                
+                if (!response.ok) {
+                    throw new Error('Gagal mengambil data libur');
+                }
+                
+                holidays = await response.json();
+                renderCalendar();
+                updateInfoCard();
+            } catch (error) {
+                console.error('Error:', error);
+                // Gunakan data default jika gagal mengambil dari Supabase
+                holidays = [
+                    {date: '2025-01-01', desc: 'Tahun Baru Masehi'},
+                    // ... existing holidays data ...
+                ];
+                renderCalendar();
+                updateInfoCard();
+            }
+        }
+
+        // Panggil fungsi fetch saat halaman dimuat
+        document.addEventListener('DOMContentLoaded', fetchHolidays);
+
+        const months = [
+            'Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni',
+            'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'
+        ];
+
+        const shortMonths = [
+            'Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun',
+            'Jul', 'Agt', 'Sep', 'Okt', 'Nov', 'Des'
+        ];
+
+        function formatDate(date) {
+            const pad = n => n.toString().padStart(2, '0');
+            return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+        }
+
+        function formatDisplayDate(date, useShortMonth = true) {
+            const day = date.getDate();
+            const month = useShortMonth ? shortMonths[date.getMonth()] : months[date.getMonth()];
+            const year = date.getFullYear();
+            return `${day} ${month} ${year}`;
+        }
+
+        function renderCalendar() {
+            // Pastikan holidays sudah terisi
+            if (!holidays || holidays.length === 0) return;
+            
+            const container = document.getElementById('calendar');
+            container.innerHTML = '';
+            
+            let currentDate = new Date(startDate);
+            let effectiveDayCount = 0;
+            let currentMonth = null;
+            let table = null;
+            let row = null;
+
+            // Continue until we complete all required meetings
+            while(effectiveDayCount < 67) {
+                const month = currentDate.getMonth();
+                const year = currentDate.getFullYear();
+                
+                if (month !== currentMonth) {
+                    // Buat section bulan baru
+                    if (table && row.children.length > 0) {
+                        while(row.children.length < 7) {
+                            row.appendChild(document.createElement('td'));
+                        }
+                        table.appendChild(row);
+                    }
+                    if(table) container.appendChild(table);
+                    
+                    const section = document.createElement('div');
+                    section.className = 'month';
+                    section.innerHTML = `<h2>${months[month]} ${year}</h2>`;
+                    container.appendChild(section);
+                    
+                    table = document.createElement('table');
+                    table.innerHTML = `<tr>
+                        <th>Sen</th><th>Sel</th><th>Rab</th><th>Kam</th>
+                        <th>Jum</th><th>Sab</th><th>Min</th>
+                    </tr>`;
+                    row = document.createElement('tr');
+                    
+                    const firstDayIndex = (currentDate.getDay() + 6) % 7;
+                    for(let i = 0; i < firstDayIndex; i++) {
+                        row.appendChild(document.createElement('td'));
+                    }
+                    
+                    currentMonth = month;
+                }
+
+                const dateStr = formatDate(currentDate);
+                const dayOfWeek = currentDate.getDay();
+                const isHoliday = holidays.find(h => h.date === dateStr);
+                const isSunday = dayOfWeek === 0;
+                const isSaturday = dayOfWeek === 6;
+                
+                const td = document.createElement('td');
+                let className = '';
+                let eventText = '';
+
+                // Only count days that are not holidays, not Sundays, and not Murojaah (Saturdays before munaqasyah)
+                if(!isHoliday && !isSunday && !(isSaturday && effectiveDayCount < 60)) {
+                    if(effectiveDayCount < 44) {
+                        effectiveDayCount++;
+                        className = 'efektif';
+                        eventText = `Pertemuan ${effectiveDayCount}`;
+                    } else if(effectiveDayCount < 60) {
+                        effectiveDayCount++;
+                        className = 'pengayaan';
+                        eventText = `Pengayaan ${effectiveDayCount}`;
+                    } else if(effectiveDayCount < 67) {
+                        effectiveDayCount++;
+                        className = 'munaqasyah';
+                        eventText = 'Munaqasyah';
+                    }
+                } else {
+                    if(isHoliday) {
+                        className = 'libur';
+                        eventText = isHoliday.description;
+                    } else if(isSunday) {
+                        className = 'libur';
+                        eventText = 'Minggu';
+                    } else if(isSaturday && effectiveDayCount < 60) { 
+                        className = 'murojaah';
+                        eventText = 'Murojaah';
+                    }
+                }
+
+                td.innerHTML = `
+                    <div class="date-number">${currentDate.getDate()}</div>
+                    <div class="event-label">${eventText}</div>
+                `;
+                if(className) td.className = className;
+                
+                row.appendChild(td);
+                
+                if(row.children.length === 7) {
+                    table.appendChild(row);
+                    row = document.createElement('tr');
+                }
+                
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            if(row.children.length > 0) {
+                while(row.children.length < 7) {
+                    row.appendChild(document.createElement('td'));
+                }
+                table.appendChild(row);
+            }
+            if(table) container.appendChild(table);
+        }
+
+        function updateInfoCard() {
+            const infoCard = document.getElementById('info-card');
+            let currentDate = new Date(startDate);
+            
+            let pertemuanEndDate = null;
+            let pengayaanEndDate = null;
+            let munaqasyahEndDate = null;
+            let effectiveDayCount = 0;
+            
+            while(effectiveDayCount < 67) {
+                const dayOfWeek = currentDate.getDay();
+                const dateStr = formatDate(currentDate);
+                const isHoliday = holidays.find(h => h.date === dateStr);
+                const isSunday = dayOfWeek === 0;
+                const isSaturday = dayOfWeek === 6;
+                
+                if(!isHoliday && !isSunday && !(isSaturday && effectiveDayCount < 60)) {
+                    effectiveDayCount++;
+                    
+                    if(effectiveDayCount === 44) {
+                        pertemuanEndDate = new Date(currentDate);
+                    } else if(effectiveDayCount === 60) {
+                        pengayaanEndDate = new Date(currentDate);
+                    } else if(effectiveDayCount === 67) {
+                        munaqasyahEndDate = new Date(currentDate);
+                    }
+                }
+                
+                currentDate.setDate(currentDate.getDate() + 1);
+            }
+
+            infoCard.innerHTML = `
+                <h3>Informasi Jadwal</h3>
+                <table>
+                    <tr>
+                        <th>Kegiatan</th>
+                        <th>Periode</th>
+                    </tr>
+                    <tr>
+                        <td>Pertemuan 01 s/d 44</td>
+                        <td><span class="date-span">${formatDisplayDate(startDate, true)} - ${formatDisplayDate(pertemuanEndDate, true)}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Pengayaan 45 s/d 60</td>
+                        <td><span class="date-span">${formatDisplayDate(new Date(pertemuanEndDate.getTime() + 86400000), true)} - ${formatDisplayDate(pengayaanEndDate, true)}</span></td>
+                    </tr>
+                    <tr>
+                        <td>Estimasi Munaqasyah</td>
+                        <td><span class="date-span">${formatDisplayDate(new Date(pengayaanEndDate.getTime() + 86400000), true)} - ${formatDisplayDate(munaqasyahEndDate, true)}</span></td>
+                    </tr>
+                </table>
+            `;
+        }
+    </script>
+</body>
+</html>
